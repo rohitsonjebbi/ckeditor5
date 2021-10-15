@@ -49,6 +49,8 @@ import RealTimeCollaborativeTrackChanges from '@ckeditor/ckeditor5-real-time-col
 // The following plugin enables users presence list and is optional.
 import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presencelist';
 
+import Hyphen from '@ckeditor/bb-ckeditor5-hyphen';
+
 export default class DecoupledEditor extends DecoupledEditorBase {}
 
 // Plugins to include in the build.
@@ -90,7 +92,8 @@ DecoupledEditor.builtinPlugins = [
 	RealTimeCollaborativeEditing,
 	RealTimeCollaborativeComments,
 	RealTimeCollaborativeTrackChanges,
-	PresenceList
+	PresenceList,
+	Hyphen
 ];
 
 // Editor configuration.
@@ -127,7 +130,8 @@ DecoupledEditor.defaultConfig = {
 			'redo',
 			'|',
 			'comment',
-			'trackChanges'
+			'trackChanges',
+			'Hyphen'
 		]
 	},
 	image: {
