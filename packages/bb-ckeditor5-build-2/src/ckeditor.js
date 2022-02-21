@@ -50,7 +50,7 @@ import RealTimeCollaborativeTrackChanges from '@ckeditor/ckeditor5-real-time-col
 import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presencelist';
 
 import Hyphen from '@ckeditor/bb-ckeditor5-hyphen';
-
+import SimpleBox from '@ckeditor/ckeditor5-simplebox';
 export default class DecoupledEditor extends DecoupledEditorBase {}
 
 // Plugins to include in the build.
@@ -93,7 +93,8 @@ DecoupledEditor.builtinPlugins = [
 	RealTimeCollaborativeComments,
 	RealTimeCollaborativeTrackChanges,
 	PresenceList,
-	Hyphen
+	Hyphen,
+	SimpleBox
 ];
 
 // Editor configuration.
@@ -131,7 +132,8 @@ DecoupledEditor.defaultConfig = {
 			'|',
 			'comment',
 			'trackChanges',
-			'Hyphen'
+			'hyphen',
+			'simpleBox'
 		]
 	},
 	image: {

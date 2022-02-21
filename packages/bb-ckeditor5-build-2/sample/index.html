@@ -37,7 +37,7 @@
 		}
 
 		.editable-container .ck-editor__editable {
-			min-height: 200px;
+			/* min-height: 200px; */
 			padding: 2em;
 			border: 1px #D3D3D3 solid;
 			border-radius: var(--ck-border-radius);
@@ -45,6 +45,29 @@
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		}
 	</style>
+
+<style>
+	.simple-box {
+		padding: 10px;
+		margin: 1em 0;
+
+		background: rgba( 0, 0, 0, 0.1 );
+		border: solid 1px hsl(0, 0%, 77%);
+		border-radius: 2px;
+	}
+
+	.simple-box-title, .simple-box-description {
+		padding: 10px;
+		margin: 0;
+
+		background: #FFF;
+		border: solid 1px hsl(0, 0%, 77%);
+	}
+
+	.simple-box-title {
+		margin-bottom: 10px;
+	}
+</style>
 </head>
 <body>
 
@@ -62,19 +85,17 @@
 <script>
 	const editorData = `<h2>Sample</h2>
 		<p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#document-editor">document editor build</a>.</p>
-		<figure class="image">
-			<img src="../tests/manual/sample.jpg" alt="Autumn fields" />
-		</figure>
+		
 		<p>You can use this sample to validate whether your <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html">custom build</a> works fine.</p>`;
 
 	DecoupledEditor.create( editorData, {
     cloudServices: {
-        tokenUrl: 'https://82124.cke-cs.com/token/dev/aa191f84ea2fd5261c98052704d0075dd511a39f573798760d3e1d27f387',
-        uploadUrl: 'https://82124.cke-cs.com/easyimage/upload/',
-        webSocketUrl: 'wss://82124.cke-cs.com/ws',
+        tokenUrl: 'https://82590.cke-cs.com/token/dev/622a6f7bcb0095ecf98869197ffd9beff05e77b2e79be47d04d8cb852b28?limit=10',
+        uploadUrl: 'https://82590.cke-cs.com/easyimage/upload/',
+        webSocketUrl: 'wss://82590.cke-cs.com/ws',
       },
       collaboration: {
-        channelId: "test-decoupled-editor-10-test-7"
+        channelId: "test-decoupled-editor-10-test-7111"
       },
       sidebar: {
         container: document.querySelector('#sidebar')
@@ -88,6 +109,8 @@
 
 			document.querySelector( '.toolbar-container' ).appendChild( editor.ui.view.toolbar.element );
 			document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+
+            editor.execute('trackChanges');
 		} )
 		.catch( error => {
 			console.error( 'There was a problem initializing the editor.', error );
