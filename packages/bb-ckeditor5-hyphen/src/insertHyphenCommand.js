@@ -1,6 +1,6 @@
 import { Command } from 'ckeditor5/src/core';
 
-export default class HyphenCommand extends Command {
+export default class InsertHyphenCommand extends Command {
 	execute() {
 		const editor = this.editor;
 		const content = '&shy;';

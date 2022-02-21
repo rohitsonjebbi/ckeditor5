@@ -18,13 +18,19 @@ export default class HyphenUi extends Plugin {
 			} );
 
 			// Disable the placeholder button when the command is disabled.
-			const command = editor.commands.get( 'hyphen' );
+			const command = editor.commands.get( 'insertHyphen' );
+
+			// Bind the state of the button to the command.
 			view.bind( 'isEnabled' ).to( command );
 
 			// Execute the command when the dropdown item is clicked (executed).
 			this.listenTo( view, 'execute', () => {
-				editor.execute( 'hyphen' );
+				editor.execute( 'insertHyphen' );
 			} );
+
+			// const trackChangesEditing = editor.plugins.get( 'TrackChangesEditing' );
+			// trackChangesEditing.enableCommand( 'insertHyphen' );
+
 			return view;
 		} );
 	}
