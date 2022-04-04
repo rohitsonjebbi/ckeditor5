@@ -19,7 +19,7 @@ import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
-import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
+// import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import Image from '@ckeditor/ckeditor5-image/src/image';
@@ -30,7 +30,7 @@ import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
 import Indent from '@ckeditor/ckeditor5-indent/src/indent';
 import IndentBlock from '@ckeditor/ckeditor5-indent/src/indentblock';
-import Link from '@ckeditor/ckeditor5-link/src/link';
+import Link from '@ckeditor/ckeditor5-custom-link/src/link';
 import List from '@ckeditor/ckeditor5-list/src/list';
 import ListStyle from '@ckeditor/ckeditor5-list/src/liststyle';
 import MediaEmbed from '@ckeditor/ckeditor5-media-embed/src/mediaembed';
@@ -51,6 +51,7 @@ import PresenceList from '@ckeditor/ckeditor5-real-time-collaboration/src/presen
 
 import Hyphen from '@ckeditor/bb-ckeditor5-hyphen';
 import SimpleBox from '@ckeditor/ckeditor5-simplebox';
+
 export default class DecoupledEditor extends DecoupledEditorBase {}
 
 // Plugins to include in the build.
@@ -68,7 +69,7 @@ DecoupledEditor.builtinPlugins = [
 	Strikethrough,
 	Underline,
 	BlockQuote,
-	CKFinder,
+	// CKFinder,
 	CloudServices,
 	EasyImage,
 	Heading,

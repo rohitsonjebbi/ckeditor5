@@ -4,9 +4,7 @@
 	<meta charset="utf-8">
 	<title>CKEditor 5 – document editor build – development sample</title>
 	<style>
-		
 		body {
-			max-width: 90%;
 			margin: 20px auto;
 		}
 
@@ -44,78 +42,139 @@
 			background: white;
 			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 		}
+
+		.w-10 {
+			width: 10% !important;
+		}
+
+		.w-20 {
+			width: 20% !important;
+		}
+
+		.w-25 {
+			width: 25% !important;
+		}
+
+		.w-45 {
+			width: 45% !important;
+		}
+
 	</style>
 
-<style>
-	.simple-box {
-		padding: 10px;
-		margin: 1em 0;
+	<style>
+		.simple-box {
+			padding: 10px;
+			margin: 1em 0;
 
-		background: rgba( 0, 0, 0, 0.1 );
-		border: solid 1px hsl(0, 0%, 77%);
-		border-radius: 2px;
-	}
+			background: rgba(0, 0, 0, 0.1);
+			border: solid 1px hsl(0, 0%, 77%);
+			border-radius: 2px;
+		}
 
-	.simple-box-title, .simple-box-description {
-		padding: 10px;
-		margin: 0;
+		.simple-box-title,
+		.simple-box-description {
+			padding: 10px;
+			margin: 0;
 
-		background: #FFF;
-		border: solid 1px hsl(0, 0%, 77%);
-	}
+			background: #FFF;
+			border: solid 1px hsl(0, 0%, 77%);
+		}
 
-	.simple-box-title {
-		margin-bottom: 10px;
-	}
-</style>
+		.simple-box-title {
+			margin-bottom: 10px;
+		}
+
+	</style>
+	<link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.min.css">
 </head>
+
 <body>
+	<div class="container-fluid">
+		<h3> test</h3>
+		<div id="presence-list-container"></div>
+		<div class="toolbar-container"></div>
 
-  <h3> test</h3>
-  <div id="presence-list-container"></div>
-  <div class="toolbar-container"></div>
+
+		<div class="editable-container-super">
+			<div class="editable-container"></div>
+			<div id="sidebar"></div>
+		</div>
+	</div>
 
 
-  <div class="editable-container-super">
-    <div class="editable-container"></div>
-    <div id="sidebar"></div>
-  </div>
+	<script src="../build/ckeditor.js"></script>
+	<script>
+		const editorData =
+			`<p>Some <b>bold</b> text <a href="https://ckeditor.com" download="download">CKEditor decorated</a> and <a href="https://cksource.com">CKSource</a>.</p>
+	<p>An "empty" paragraph to paste links:</p>`;
 
-<script src="../build/ckeditor.js"></script>
-<script>
-	const editorData = `<h2>Sample</h2>
-		<p>This is an instance of the <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/overview.html#document-editor">document editor build</a>.</p>
-		
-		<p>You can use this sample to validate whether your <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html">custom build</a> works fine.</p>`;
+		DecoupledEditor.create(editorData, {
+				cloudServices: {
+					tokenUrl: 'https://82590.cke-cs.com/token/dev/37623aab5baa9330bd4256d1f257f077e1a0640fd633ca7c73a2896a598a?limit=10',
+					uploadUrl: 'https://82590.cke-cs.com/easyimage/upload/',
+					webSocketUrl: 'wss://82590.cke-cs.com/ws',
+				},
+				collaboration: {
+					channelId: "test-decoupled-editor-10-test-7111alexajkjj1111"
+				},
+				sidebar: {
+					container: document.querySelector('#sidebar')
+				},
+				presenceList: {
+					container: document.querySelector('#presence-list-container')
+				},
+				link: {
+					data: {
+						toc: getTocList,
+						abbreviation: gerAbbreviationList,
+						reference: getReferenceList
+					}
+				}
+			})
+			.then(editor => {
+				window.editor = editor;
 
-	DecoupledEditor.create( editorData, {
-    cloudServices: {
-        tokenUrl: 'https://82590.cke-cs.com/token/dev/622a6f7bcb0095ecf98869197ffd9beff05e77b2e79be47d04d8cb852b28?limit=10',
-        uploadUrl: 'https://82590.cke-cs.com/easyimage/upload/',
-        webSocketUrl: 'wss://82590.cke-cs.com/ws',
-      },
-      collaboration: {
-        channelId: "test-decoupled-editor-10-test-7111"
-      },
-      sidebar: {
-        container: document.querySelector('#sidebar')
-      },
-      presenceList: {
-        container: document.querySelector('#presence-list-container')
-      },
-  } )
-		.then( editor => {
-			window.editor = editor;
+				document.querySelector('.toolbar-container').appendChild(editor.ui.view.toolbar.element);
+				document.querySelector('.editable-container').appendChild(editor.ui.view.editable.element);
 
-			document.querySelector( '.toolbar-container' ).appendChild( editor.ui.view.toolbar.element );
-			document.querySelector( '.editable-container' ).appendChild( editor.ui.view.editable.element );
+				editor.execute('trackChanges');
+			})
+			.catch(error => {
+				console.error('There was a problem initializing the editor.', error);
+			});
 
-            editor.execute('trackChanges');
-		} )
-		.catch( error => {
-			console.error( 'There was a problem initializing the editor.', error );
-		} );
-</script>
+
+		function getTocList() {
+			const fetchOptions = {
+				method: 'get',
+				mode: 'no-cors'
+			};
+			return fetch(`http://localhost:8888/acoms/media/data/guideline/ENAS103/ENAS103_TOC.json`, fetchOptions)
+				.then(response => response.json());
+		}
+
+		function gerAbbreviationList() {
+			const fetchOptions = {
+				method: 'get',
+				mode: 'no-cors'
+			};
+			return fetch(`http://localhost:8888/acoms/media/data/guideline/ENAS103/Abbreviations.json`, fetchOptions)
+				.then(response => response.json());
+		}
+
+		function getReferenceList() {
+			const fetchOptions = {
+				method: 'get',
+				mode: 'no-cors'
+			};
+			return fetch(
+					`http://localhost:8888/acoms/controllers/controller.guidelineOperations.php?operationType=getGuidelineReferenceList&guidelineId=112`,
+					fetchOptions)
+				.then(response => response.json());
+		}
+
+	</script>
 
 </body>
+
 </html>
